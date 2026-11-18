@@ -18,9 +18,9 @@ api_router.include_router(interview.router,     prefix="/interview", tags=["æ¨¡æ
 
 if __name__ == '__main__':
     import os
-
-    os.environ["LANGCHAIN_TRACING_V2"] = "true"
-    os.environ["LANGCHAIN_PROJECT"] = "resume_trace_pro"
+    #
+    # os.environ["LANGCHAIN_TRACING_V2"] = "true"
+    # os.environ["LANGCHAIN_PROJECT"] = "resume_trace_pro"
     import uvicorn
     app = FastAPI(title="eduagent")
 
