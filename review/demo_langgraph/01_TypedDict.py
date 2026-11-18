@@ -1,0 +1,39 @@
+"""
+    typedict；用来给"字典"定义结构化的键和值类型。本身不做数据校验,只是做注解
+"""
+# 1. 导入需要的类型 定义方式和pydantic基本上是一模一样的，唯一区别不做数据校验
+from typing import TypedDict
+
+# 本身是一个字典结构/模型/骨架，可以给键指定数据类型
+class SimpleState(TypedDict):
+    # 定义需要的字段以及字段对应值的类型
+    input: str
+    output: str
+
+# 2. 创建符合 SimpleState 结构的字典 关键字赋值
+state1 = SimpleState(input="hello", output="world")
+print(state1)
+print(type(state1))
+# # 或者用等号赋值
+# state2: SimpleState = {
+#     "input": "你好",
+#     "output": "世界"
+# }
+# print(state2)
+# # 3. 访问字段
+print(state1["input"])   # 输出: hello
+print(state1["output"])  # 输出: 世界
+
+# # 4. 修改字段（和普通字典完全一样）
+state1["output"] = "Python"
+print(state1)            # 输出: {'input': 'hello', 'output': 'Python'}
+
+# 5. 演示类型检查的好处（如果你在使用 PyCharm / VSCode + Pylance）
+# 下面的代码会触发编辑器的警告（但运行时仍可执行，因为 Python 本身不强制类型） 类型约束
+# typedict 只是一个数据类型，不做数据类型校验
+state3: SimpleState = {"input": 123, "output": "wrong"}   # 警告：input 应该是 str，但给了 int
+print(f'state3-->{state3}')
+state4: SimpleState = {"input": "ok"}                     # 警告：缺少 output 字段
+print(f'state4-->{state4}')
+state5: SimpleState = {"input": "a", "output": "b", "extra": 1}  # 警告：多出的字段 extra
+print(f'state5-->{state5}')
